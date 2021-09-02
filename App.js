@@ -1,13 +1,57 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, ImageBackground, Image, Button, Alert, TouchableOpacity, RadioButton, Platform } from 'react-native';
 
-type Props = {};
+const App2 = () => {
+  const nome = { ph:'Nome', stl: styles.form }
+  const peso = { ph:'Peso', stl: styles.form }
+  const altura = { ph:'Altura', stl: styles.form }
+  const getName = (txt) => {
+  const txt2 = (txt) 
 
-export default class App extends Component<Props> {
+    console.log(txt2)
+    // console.log(this.state)
+    // this.setState({...this.state, nome:txt,})
+    // const stt = this.state
+    // stt.nome = txt
+    // this.setState(stt)
+  }
+
+
+  return (
+    <ImageBackground source={require("./assets/img/fundo3.jpg")} style={styles.fundo}>
+      <View style={styles.container}>
+        <View style={styles.box}>
+          <Image source={require('./assets/img/logo.png')} style={styles.logo} />
+          <Text style={styles.title}>{'Calculadora de IMC'}</Text>
+        </View>
+        <View style={styles.principal}>
+          <TextInput placeholder={nome.ph} style={nome.stl} onChangeText={getName}/>
+          <TextInput placeholder={peso.ph} style={peso.stl} onChangeText={getName}/>
+          <TextInput placeholder={altura.ph} style={altura.stl} onChangeText={getName}/>
+          {/* <TouchableOpacity style={styles.bt} onPress={this.calcular}><Text style={styles.texto}>{'Calcular IMC'}</Text></TouchableOpacity> */}
+
+          {/* <Text style={styles.result}>{this.state.result.toFixed(2)}</Text>
+          <Text style={styles.result2}>{this.state.nome} {this.state.resultTexto}</Text> */}
+        </View>
+      </View>
+    </ImageBackground>
+  );
+  
+  return(
+    <View>
+      <Text>Teste</Text>
+    </View>
+  )
+}
+
+
+export default App2
+
+ class App extends Component {
 
   constructor(props) {
     super(props)
-    this.state = { altura: 0, peso: 0, nome: "", result: 0, resultTexto: "", nome: "" }
+    this.state = { altura: 0, peso: 0, nome: "", result: 0, resultTexto: "" }
     this.calcular = this.calcular.bind(this)
   }
 
@@ -37,10 +81,18 @@ export default class App extends Component<Props> {
   }
 
   render() {
-    const nome = { ph: 'Nome', stl: styles.form }
+    const nome = { ph:'Nome', stl: styles.form }
     const peso = { ph: 'Peso', stl: styles.form }
     const altura = { ph: 'Altura', stl: styles.form }
-
+    
+    const getName = (txt) => {
+      // console.log(this.state)
+      // this.setState({...this.state, nome:txt,})
+      const stt = this.state
+      stt.nome = txt
+      this.setState(stt)
+    }
+    
     return (
       <ImageBackground source={require("./assets/img/fundo3.jpg")} style={styles.fundo}>
         <View style={styles.container}>
@@ -49,9 +101,9 @@ export default class App extends Component<Props> {
             <Text style={styles.title}>{'Calculadora de IMC'}</Text>
           </View>
           <View style={styles.principal}>
-            <TextInput placeholder={nome.ph} style={nome.stl} />
-            <TextInput placeholder={peso.ph} style={peso.stl} />
-            <TextInput placeholder={altura.ph} style={altura.stl} />
+            <TextInput placeholder={nome.ph} style={nome.stl} onChangeText={getName}/>
+            <TextInput placeholder={peso.ph} style={peso.stl} onChangeText={getName}/>
+            <TextInput placeholder={altura.ph} style={altura.stl} onChangeText={getName}/>
             <TouchableOpacity style={styles.bt} onPress={this.calcular}><Text style={styles.texto}>{'Calcular IMC'}</Text></TouchableOpacity>
 
             <Text style={styles.result}>{this.state.result.toFixed(2)}</Text>
@@ -109,7 +161,7 @@ const styles = StyleSheet.create({
     height: 40,
     width: 320,
     padding: 10,
-    backgroundColor: 'rgb(250, 250, 250)',
+    backgroundColor: '#fff',
     borderColor: '#eee',
     borderWidth: 1,
     marginTop: 20,
