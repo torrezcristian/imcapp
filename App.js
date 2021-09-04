@@ -1,21 +1,61 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, ImageBackground, Image, Button, Alert, TouchableOpacity, RadioButton, Platform } from 'react-native';
 
+
 const App2 = () => {
   const nome = { ph:'Nome', stl: styles.form }
   const peso = { ph:'Peso', stl: styles.form }
   const altura = { ph:'Altura', stl: styles.form }
-  const getName = (txt) => {
-  const txt2 = (txt) 
 
-    console.log(txt2)
-    // console.log(this.state)
-    // this.setState({...this.state, nome:txt,})
-    // const stt = this.state
-    // stt.nome = txt
-    // this.setState(stt)
+    const stateVal = {
+      nome:'',
+      peso:0,
+      altura:0,
+      nomeresultTexto:'',
+      result:{toFixed:() => {   
+    }}}
+
+    const [state, setState] = React.useState(stateVal)
+    const calcular = () => {
+      let imc = state.peso/(state.altura*state.altura)
+      let s = state
+      s.result = imc
+      setState(s)
+
+      if (s.result <16) {
+        s.resultTexto = "Muito abaixo do peso"
+      } else if (s.result <17) {
+        s.resultTexto = "Abaixo do peso"
+      } else if (s.result <18.5) {
+        s.resultTexto = "Moderadamente abaixo do peso"
+      } else if (s.result <25) {
+        s.resultTexto = "Saudavél"
+      } else if (s.result <30) {
+        s.resultTexto = "Sobrepeso"
+      } else if (s.result <35) {
+        s.resultTexto = "Obesidade"
+      } else if (s.result <40) {
+        s.resultTexto = "Obesidade Grau II"
+      } else {
+        s.resultTexto = "Obesidade Grau III"
+      }
   }
 
+  const getName = (txt) => {
+    console.log(txt)
+    setState({
+    ...state, nome:txt,})
+  }
+
+  const getPeso = (Number) => {
+    console.log(Number)
+    setState({...state, peso:Number,})
+  }
+
+  const getAltura = (Number) => {
+    console.log(Number)
+    setState({...state, altura:Number,})
+  }
 
   return (
     <ImageBackground source={require("./assets/img/fundo3.jpg")} style={styles.fundo}>
@@ -25,13 +65,15 @@ const App2 = () => {
           <Text style={styles.title}>{'Calculadora de IMC'}</Text>
         </View>
         <View style={styles.principal}>
+        <View style={styles.principal}>
           <TextInput placeholder={nome.ph} style={nome.stl} onChangeText={getName}/>
-          <TextInput placeholder={peso.ph} style={peso.stl} onChangeText={getName}/>
-          <TextInput placeholder={altura.ph} style={altura.stl} onChangeText={getName}/>
-          {/* <TouchableOpacity style={styles.bt} onPress={this.calcular}><Text style={styles.texto}>{'Calcular IMC'}</Text></TouchableOpacity> */}
+          <TextInput placeholder={peso.ph} style={peso.stl} onChangeText={getPeso}/>
+          <TextInput placeholder={altura.ph} style={altura.stl} onChangeText={getAltura}/>
+          <TouchableOpacity style={styles.bt} onPress={calcular}><Text style={styles.texto}>Calcular IMC</Text></TouchableOpacity>
 
-          {/* <Text style={styles.result}>{this.state.result.toFixed(2)}</Text>
-          <Text style={styles.result2}>{this.state.nome} {this.state.resultTexto}</Text> */}
+          <Text style={styles.result}>{state.result.toFixed()}</Text>
+          <Text style={styles.result2}>{state.nome}</Text>
+          <Text style={styles.result2}>{state.resultTexto}</Text>
         </View>
       </View>
     </ImageBackground>
@@ -44,76 +86,12 @@ const App2 = () => {
   )
 }
 
-
-export default App2
-
- class App extends Component {
-
-  constructor(props) {
-    super(props)
-    this.state = { altura: 0, peso: 0, nome: "", result: 0, resultTexto: "" }
-    this.calcular = this.calcular.bind(this)
-  }
-
-  calcular() {
-    let imc = this.state.peso / (this.state.altura * this.state.altura)
-    let s = this.state
-    s.result = imc
-    this.setState(s)
-
-    if (s.result < 16) {
-      s.resultTexto = "Muito abaixo do peso"
-    } else if (s.result < 17) {
-      s.resultTexto = "Abaixo do peso"
-    } else if (s.result < 18.5) {
-      s.resultTexto = "Moderadamente abaixo do peso"
-    } else if (s.result < 25) {
-      s.resultTexto = "Saudavél"
-    } else if (s.result < 30) {
-      s.resultTexto = "Sobrepeso"
-    } else if (s.result < 35) {
-      s.resultTexto = "Obesidade"
-    } else if (s.result < 40) {
-      s.resultTexto = "Obesidade Grau II"
-    } else {
-      s.resultTexto = "Obesidade Grau III"
-    }
-  }
-
-  render() {
-    const nome = { ph:'Nome', stl: styles.form }
-    const peso = { ph: 'Peso', stl: styles.form }
-    const altura = { ph: 'Altura', stl: styles.form }
-    
-    const getName = (txt) => {
-      // console.log(this.state)
-      // this.setState({...this.state, nome:txt,})
-      const stt = this.state
-      stt.nome = txt
-      this.setState(stt)
-    }
-    
-    return (
-      <ImageBackground source={require("./assets/img/fundo3.jpg")} style={styles.fundo}>
-        <View style={styles.container}>
-          <View style={styles.box}>
-            <Image source={require('./assets/img/logo.png')} style={styles.logo} />
-            <Text style={styles.title}>{'Calculadora de IMC'}</Text>
-          </View>
-          <View style={styles.principal}>
-            <TextInput placeholder={nome.ph} style={nome.stl} onChangeText={getName}/>
-            <TextInput placeholder={peso.ph} style={peso.stl} onChangeText={getName}/>
-            <TextInput placeholder={altura.ph} style={altura.stl} onChangeText={getName}/>
-            <TouchableOpacity style={styles.bt} onPress={this.calcular}><Text style={styles.texto}>{'Calcular IMC'}</Text></TouchableOpacity>
-
-            <Text style={styles.result}>{this.state.result.toFixed(2)}</Text>
-            <Text style={styles.result2}>{this.state.nome} {this.state.resultTexto}</Text>
-          </View>
-        </View>
-      </ImageBackground>
-    );
-  }
+const App = () => {
 }
+
+export default App
+
+
 
 const styles = StyleSheet.create({
   container: {
