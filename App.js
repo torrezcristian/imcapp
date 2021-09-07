@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, ImageBackground, Image, Button, Alert, TouchableOpacity, RadioButton, Platform } from 'react-native';
 
-
 const App2 = () => {
   const nome = { ph:'Nome', stl: styles.form }
   const peso = { ph:'Peso', stl: styles.form }
@@ -12,15 +11,15 @@ const App2 = () => {
       peso:0,
       altura:0,
       nomeresultTexto:'',
-      result:{toFixed:() => {   
-    }}}
+      result:{toFixed:() => {
+  }}}
 
-    const [state, setState] = React.useState(stateVal)
-    const calcular = () => {
-      let imc = state.peso/(state.altura*state.altura)
-      let s = state
-      s.result = imc
-      setState(s)
+  const [state, setState] = React.useState(stateVal)
+  const calcular = () => {
+    let imc = state.peso/(state.altura*state.altura)
+    let s = state
+    s.result = imc
+    setState(s)
 
       if (s.result <16) {
         s.resultTexto = "Muito abaixo do peso"
@@ -43,17 +42,24 @@ const App2 = () => {
 
   const getName = (txt) => {
     console.log(txt)
-    setState({
-    ...state, nome:txt,})
+    setState({...state, nome:txt,})
   }
 
-  const getPeso = (Number) => {
-    console.log(Number)
-    setState({...state, peso:Number,})
+  const getPeso = (txt) => {
+    console.log(txt)
+    let s = "txt";
+    let n = Number (s)
+    console.log(s, typeof s); // string
+    console.log(n, typeof n); // number
+    setState({...state, peso:Number,}) 
   }
 
-  const getAltura = (Number) => {
-    console.log(Number)
+  const getAltura = (txt) => {
+    console.log(txt)
+    let s = "txt";
+    let n = Number (s)
+    console.log(s, typeof s); // string
+    console.log(n, typeof n); // number
     setState({...state, altura:Number,})
   }
 
@@ -65,33 +71,21 @@ const App2 = () => {
           <Text style={styles.title}>{'Calculadora de IMC'}</Text>
         </View>
         <View style={styles.principal}>
-        <View style={styles.principal}>
           <TextInput placeholder={nome.ph} style={nome.stl} onChangeText={getName}/>
           <TextInput placeholder={peso.ph} style={peso.stl} onChangeText={getPeso}/>
           <TextInput placeholder={altura.ph} style={altura.stl} onChangeText={getAltura}/>
           <TouchableOpacity style={styles.bt} onPress={calcular}><Text style={styles.texto}>Calcular IMC</Text></TouchableOpacity>
 
-          <Text style={styles.result}>{state.result.toFixed()}</Text>
           <Text style={styles.result2}>{state.nome}</Text>
+          <Text style={styles.result}>{state.result.toFixed(2)}</Text>
           <Text style={styles.result2}>{state.resultTexto}</Text>
         </View>
       </View>
     </ImageBackground>
   );
-  
-  return(
-    <View>
-      <Text>Teste</Text>
-    </View>
-  )
 }
 
-const App = () => {
-}
-
-export default App
-
-
+export default App2
 
 const styles = StyleSheet.create({
   container: {
@@ -150,7 +144,7 @@ const styles = StyleSheet.create({
     shadowOffset: {
       width: 2,
       height: 2,
-    }
+    },
   },
 
   bt: {
