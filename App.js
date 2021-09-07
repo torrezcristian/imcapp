@@ -6,7 +6,7 @@ const App2 = () => {
   const peso = { ph:'Peso', stl: styles.form }
   const altura = { ph:'Altura', stl: styles.form }
 
-    const stateVal = {
+    const valoresIniciais = {
       nome:'',
       peso:0,
       altura:0,
@@ -14,12 +14,13 @@ const App2 = () => {
       result:{toFixed:() => {
   }}}
 
-  const [state, setState] = React.useState(stateVal)
+  const [valores, mudaValores] = React.useState(valoresIniciais)
+
   const calcular = () => {
-    let imc = state.peso/(state.altura*state.altura)
-    let s = state
+    let imc = valores.peso/(valores.altura*valores.altura)
+    let s = valores
     s.result = imc
-    setState(s)
+    mudaValores(s)
 
       if (s.result <16) {
         s.resultTexto = "Muito abaixo do peso"
@@ -40,27 +41,18 @@ const App2 = () => {
       }
   }
 
-  const getName = (txt) => {
-    console.log(txt)
-    setState({...state, nome:txt,})
+  const getName = (nomeTxt) => {
+    mudaValores({...valores, nome:nomeTxt,})
   }
 
-  const getPeso = (txt) => {
-    console.log(txt)
-    let s = "txt";
-    let n = Number (s)
-    console.log(s, typeof s); // string
-    console.log(n, typeof n); // number
-    setState({...state, peso:Number,}) 
+  const getPeso = (pesoTxt) => {
+    const pesoNum = Number(pesoTxt)
+    mudaValores({...valores, peso:pesoNum,}) 
   }
 
-  const getAltura = (txt) => {
-    console.log(txt)
-    let s = "txt";
-    let n = Number (s)
-    console.log(s, typeof s); // string
-    console.log(n, typeof n); // number
-    setState({...state, altura:Number,})
+  const getAltura = (alturaTxt) => {
+    const alturaNum = Number(alturaTxt)
+    mudaValores({...valores, altura:alturaNum,})
   }
 
   return (
@@ -76,9 +68,9 @@ const App2 = () => {
           <TextInput placeholder={altura.ph} style={altura.stl} onChangeText={getAltura}/>
           <TouchableOpacity style={styles.bt} onPress={calcular}><Text style={styles.texto}>Calcular IMC</Text></TouchableOpacity>
 
-          <Text style={styles.result2}>{state.nome}</Text>
-          <Text style={styles.result}>{state.result.toFixed(2)}</Text>
-          <Text style={styles.result2}>{state.resultTexto}</Text>
+          <Text style={styles.result2}>{valores.nome}</Text>
+          <Text style={styles.result}>{valores.result.toFixed(2)}</Text>
+          <Text style={styles.result2}>{valores.resultTexto}</Text>
         </View>
       </View>
     </ImageBackground>
