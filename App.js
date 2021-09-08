@@ -41,18 +41,18 @@ const App2 = () => {
       }
   }
 
-  const getName = (nomeTxt) => {
-    mudaValores({...valores, nome:nomeTxt,})
-  }
-
-  const getPeso = (pesoTxt) => {
-    const pesoNum = Number(pesoTxt)
-    mudaValores({...valores, peso:pesoNum,}) 
-  }
-
-  const getAltura = (alturaTxt) => {
-    const alturaNum = Number(alturaTxt)
-    mudaValores({...valores, altura:alturaNum,})
+  const campos = {
+    getName:(nomeTxt) => {
+      mudaValores({...valores, nome:nomeTxt,})
+    },
+    getPeso:(pesoTxt) => {
+      const pesoNum = Number(pesoTxt) 
+      mudaValores({...valores, peso:pesoNum,}) 
+    },
+    getAltura:(alturaTxt) => {
+      const alturaNum = Number(alturaTxt)
+      mudaValores({...valores, altura:alturaNum,})
+    },
   }
 
   return (
@@ -63,9 +63,9 @@ const App2 = () => {
           <Text style={styles.title}>{'Calculadora de IMC'}</Text>
         </View>
         <View style={styles.principal}>
-          <TextInput placeholder={nome.ph} style={nome.stl} onChangeText={getName}/>
-          <TextInput placeholder={peso.ph} style={peso.stl} onChangeText={getPeso}/>
-          <TextInput placeholder={altura.ph} style={altura.stl} onChangeText={getAltura}/>
+          <TextInput placeholder={nome.ph} style={nome.stl} onChangeText={campos.getName}/>
+          <TextInput placeholder={peso.ph} style={peso.stl} onChangeText={campos.getPeso}/>
+          <TextInput placeholder={altura.ph} style={altura.stl} onChangeText={campos.getAltura}/>
           <TouchableOpacity style={styles.bt} onPress={calcular}><Text style={styles.texto}>Calcular IMC</Text></TouchableOpacity>
 
           <Text style={styles.result2}>{valores.nome}</Text>
